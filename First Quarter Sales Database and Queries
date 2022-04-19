@@ -1,3 +1,5 @@
+-- Create a database using information from the first quarter sales data. 
+
 CREATE TABLE first_quarter_sales (id INTEGER PRIMARY KEY, salesperson_name TEXT, jan_sales INTEGER, feb_sales INTEGER, march_sales INTEGER, region TEXT)
 
 INSERT INTO first_quarter_sales VALUE (1, "John", 5342, 6433, 8975, "north");
@@ -5,12 +7,22 @@ INSERT INTO first quarter_sales VALUE (2, "Tina", 5831, 7123, 9042, "south");
 INSERT INTO first_quarter_sales VALUE (3, "Jennifer", 4314, 5900, 8593, "east");
 INSERT INTO first_quarter_sales VALUE (4, "Ron", 6864, 7938, 9423, "west");
 
-##Who had the greatest total sales for the first quarter?
+-- QUERY: Who had the greatest total sales for the first quarter?
 
 SELECT salesperson_name, 
 SUM(jan_sales + feb_sales + march_sales) AS first_quarter_sales_total
-FROM sales_DB.first_quarter_sales
+FROM first_quarter_sales
 GROUP BY salesperson_name
 ORDER BY first_quarter_sales_total desc
 
-##Answer: Ron with 24,225
+-- ANSWER: Ron with 24,225
+
+-- QUERY: What is Ron's average sales amount throughout the first quarter?
+
+SELECT salesperson_name,
+SUM(jan_sales + feb_sales + march_sales)/3
+FROM first_quarter_sales
+WHERE salesperson_name = "Ron" 
+GROUP BY(salesperson_name)
+
+-- ANSWER: 8075
